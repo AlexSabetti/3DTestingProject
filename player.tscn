@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0wcp0wtm3xqr"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerInput.cs" id="1_tlxsf"]
+[ext_resource type="Script" path="res://Scripts/PlayerAnimation_Manager.cs" id="2_tqrjp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jvxt3"]
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_tlxsf")
+BaseSpeed = 3.0
+RunSpeedMod = 1.5
+JumpSpeed = 5.0
+BonusSpeedFromJumping = 1.1
+CrouchSpeedPenalty = 0.3
+Hits = 3
+PersonalGrav = 9.8
+MouseSens = 0.002
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MyEyes" type="Camera3D" parent="Pivot"]
+
+[node name="Model" type="Node3D" parent="Pivot"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pivot/Model"]
+script = ExtResource("2_tqrjp")
+
+[node name="MyBody" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_jvxt3")

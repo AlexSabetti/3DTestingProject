@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://c0w7ksdffpfi6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i0s8v"]
+size = Vector3(12, 7, 3.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4ms51"]
+size = Vector3(12, 7, 3.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vcdgs"]
+size = Vector3(12, 7, 3.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fhahk"]
+size = Vector3(12, 7, 3.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l5hsv"]
+size = Vector3(12, 1, 12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a17xq"]
+size = Vector3(12, 1, 12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_afd6e"]
+size = Vector3(12, 1, 12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ode4w"]
+size = Vector3(12, 1, 12)
+
+[node name="StructureHallwayEW" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CorridorA" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -4.25)
+shape = SubResource("BoxShape3D_i0s8v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CorridorA"]
+mesh = SubResource("BoxMesh_4ms51")
+
+[node name="CorridorB" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 4.25)
+shape = SubResource("BoxShape3D_vcdgs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CorridorB"]
+mesh = SubResource("BoxMesh_fhahk")
+
+[node name="Ceiling" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+shape = SubResource("BoxShape3D_l5hsv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/Ceiling"]
+mesh = SubResource("BoxMesh_a17xq")
+
+[node name="Flooring" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_afd6e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/Flooring"]
+mesh = SubResource("BoxMesh_ode4w")

@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgmngjxt4gbj2"]
+
+[ext_resource type="PackedScene" uid="uid://b0wcp0wtm3xqr" path="res://player.tscn" id="1_wosbx"]
+[ext_resource type="PackedScene" uid="uid://r85ekxukb1ae" path="res://structure_cross_section.tscn" id="2_8cwt4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5wb37"]
+size = Vector3(60, 1, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7w57q"]
+size = Vector3(60, 1, 60)
+
+[node name="Main" type="Node"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_5wb37")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00161552, -0.0100346, 0.00286579)
+mesh = SubResource("BoxMesh_7w57q")
+
+[node name="Test Light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.840406, -0.541957, -1.78494e-08, -0.511425, 0.793059, 0.33091, -0.179339, 0.278098, -0.943662, 0.192352, 16.7561, -1.44942)
+shadow_enabled = true
+
+[node name="CameraPivot" type="Marker3D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_wosbx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.59929, 0)
+BaseSpeed = 4.0
+RunSpeedMod = 1.8
+BonusSpeedFromJumping = 1.2
+CrouchSpeedPenalty = 0.6
+MouseSens = 0.003
+
+[node name="StructureCrossSection" parent="." instance=ExtResource("2_8cwt4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0656223, 0.969564, -23.8758)

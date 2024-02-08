@@ -1,0 +1,212 @@
+[gd_scene load_steps=21 format=3 uid="uid://cbmcnj7uapsfv"]
+
+[ext_resource type="Script" path="res://Scripts/MainMenuScript.cs" id="1_1ulpt"]
+[ext_resource type="Texture2D" uid="uid://c3dj27yg0yxeo" path="res://Textures/TempTitle.png" id="1_7umjt"]
+[ext_resource type="LabelSettings" uid="uid://b0b5wnl2b4plc" path="res://MainMenuText.tres" id="2_efqe4"]
+[ext_resource type="Script" path="res://Scripts/StartButtonScript.cs" id="4_72wkg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xynrc"]
+size = Vector3(13, 1, 13)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kj2yp"]
+size = Vector3(13, 1, 13)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o84a2"]
+size = Vector3(15, 18, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_drpom"]
+size = Vector3(15, 18, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s6yrh"]
+size = Vector3(1, 18, 15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4mql8"]
+size = Vector3(1, 18, 15)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dk8nk"]
+font_size = 25
+font_color = Color(0.611765, 0.345098, 0, 1)
+outline_size = 2
+outline_color = Color(0.521569, 0.294118, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hy7rq"]
+size = Vector3(7, 1.3, 0.06)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ebrjy"]
+backlight = Color(0.682353, 0.858824, 0, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_io22k"]
+material = SubResource("StandardMaterial3D_ebrjy")
+text = "Begin
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q6dtr"]
+size = Vector3(7, 1.3, 0.06)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mkv2e"]
+
+[sub_resource type="TextMesh" id="TextMesh_v5vv3"]
+material = SubResource("StandardMaterial3D_mkv2e")
+text = "Settings"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xjsee"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a71e6"]
+
+[sub_resource type="TextMesh" id="TextMesh_tsd0r"]
+material = SubResource("StandardMaterial3D_a71e6")
+text = "Quit to Desktop"
+
+[node name="MainMenuScene" type="Node3D" node_paths=PackedStringArray("StartButton", "SettingsButton", "QuitButton", "SettingsMenu")]
+script = ExtResource("1_1ulpt")
+StartButton = NodePath("InWorldNormalMenu/Start")
+SettingsButton = NodePath("InWorldNormalMenu/Settings")
+QuitButton = NodePath("InWorldNormalMenu/Quit")
+SettingsMenu = NodePath("Camera3D/MenuHUD")
+
+[node name="3DSetup" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="3DSetup"]
+
+[node name="Flooring" type="CollisionShape3D" parent="3DSetup/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.102, 6.5)
+shape = SubResource("BoxShape3D_xynrc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3DSetup/StaticBody3D/Flooring"]
+mesh = SubResource("BoxMesh_kj2yp")
+
+[node name="WallRight" type="CollisionShape3D" parent="3DSetup/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 9, -0.5)
+shape = SubResource("BoxShape3D_o84a2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3DSetup/StaticBody3D/WallRight"]
+mesh = SubResource("BoxMesh_drpom")
+
+[node name="WallLeft" type="CollisionShape3D" parent="3DSetup/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 9, 7.5)
+shape = SubResource("BoxShape3D_s6yrh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3DSetup/StaticBody3D/WallLeft"]
+mesh = SubResource("BoxMesh_4mql8")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.711744, 0, 0.702439, 0, 1, 0, -0.702439, 0, 0.711744, 9.6778, 7.78648, 10.259)
+
+[node name="MenuHUD" type="MarginContainer" parent="Camera3D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 70
+theme_override_constants/margin_bottom = 120
+
+[node name="FullContainer" type="HBoxContainer" parent="Camera3D/MenuHUD"]
+layout_mode = 2
+
+[node name="LeftSideContainer" type="VBoxContainer" parent="Camera3D/MenuHUD/FullContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="Camera3D/MenuHUD/FullContainer/LeftSideContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+texture = ExtResource("1_7umjt")
+stretch_mode = 3
+
+[node name="MenuOptions" type="BoxContainer" parent="Camera3D/MenuHUD/FullContainer/LeftSideContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+vertical = true
+
+[node name="Start" type="Label" parent="Camera3D/MenuHUD/FullContainer/LeftSideContainer/MenuOptions"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Ply Bideo Gam"
+label_settings = ExtResource("2_efqe4")
+
+[node name="Settings" type="Label" parent="Camera3D/MenuHUD/FullContainer/LeftSideContainer/MenuOptions"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Settings"
+label_settings = ExtResource("2_efqe4")
+
+[node name="Quit" type="Label" parent="Camera3D/MenuHUD/FullContainer/LeftSideContainer/MenuOptions"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+text = "Quit To Desktop"
+label_settings = SubResource("LabelSettings_dk8nk")
+
+[node name="BoxContainer" type="BoxContainer" parent="Camera3D/MenuHUD/FullContainer/LeftSideContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Camera3D/MenuHUD/FullContainer/LeftSideContainer/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Version Alpha 1
+Don't know what else to put here lol
+- Just-Linx"
+horizontal_alignment = 1
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.874888, -0.370963, 0.311379, 0.349488, 0.928648, 0.124385, -0.335304, 1.99857e-08, 0.94211, 7, 8, 2)
+light_color = Color(1, 0.933333, 0.831373, 1)
+light_energy = 0.71
+sky_mode = 1
+
+[node name="InWorldNormalMenu" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 11, 0.03)
+
+[node name="GameNameTexture" type="Sprite3D" parent="InWorldNormalMenu"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+double_sided = false
+texture_filter = 0
+texture = ExtResource("1_7umjt")
+
+[node name="Start" type="StaticBody3D" parent="InWorldNormalMenu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+script = ExtResource("4_72wkg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InWorldNormalMenu/Start"]
+shape = SubResource("BoxShape3D_hy7rq")
+
+[node name="Text" type="MeshInstance3D" parent="InWorldNormalMenu/Start"]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+mesh = SubResource("TextMesh_io22k")
+
+[node name="Settings" type="StaticBody3D" parent="InWorldNormalMenu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.6, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InWorldNormalMenu/Settings"]
+shape = SubResource("BoxShape3D_q6dtr")
+
+[node name="Text" type="MeshInstance3D" parent="InWorldNormalMenu/Settings"]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+mesh = SubResource("TextMesh_v5vv3")
+
+[node name="Quit" type="StaticBody3D" parent="InWorldNormalMenu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InWorldNormalMenu/Quit"]
+shape = SubResource("BoxShape3D_xjsee")
+
+[node name="Text" type="MeshInstance3D" parent="InWorldNormalMenu/Quit"]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+mesh = SubResource("TextMesh_tsd0r")
+
+[connection signal="input_event" from="InWorldNormalMenu/Start" to="." method="InteractedStartButton"]
