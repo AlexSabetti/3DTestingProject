@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7je5r2rn60wj"]
+
+[ext_resource type="Script" path="res://Scripts/rook.gd" id="1_e2hp7"]
+[ext_resource type="Texture2D" uid="uid://dmxmgw3rh0ym2" path="res://textures/grids/Purple/texture_01.png" id="2_oajr5"]
+[ext_resource type="Texture2D" uid="uid://hy5dnopmobtg" path="res://textures/grids/Red/texture_01.png" id="2_yu724"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8ussk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t8r5k"]
+albedo_texture = ExtResource("2_oajr5")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_37uhj"]
+albedo_texture = ExtResource("2_yu724")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_q7bo1"]
+material = SubResource("StandardMaterial3D_37uhj")
+
+[node name="Rook" type="CharacterBody3D"]
+script = ExtResource("1_e2hp7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_8ussk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_t8r5k")
+mesh = SubResource("CapsuleMesh_q7bo1")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(5, 0, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 5
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

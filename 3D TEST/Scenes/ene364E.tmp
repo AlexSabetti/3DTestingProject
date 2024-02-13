@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://c4k0bm8yytd45"]
+
+[ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_0pbe3"]
+[ext_resource type="Texture2D" uid="uid://hy5dnopmobtg" path="res://textures/grids/Red/texture_01.png" id="1_6cqfp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8ussk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_37uhj"]
+albedo_texture = ExtResource("1_6cqfp")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_q7bo1"]
+material = SubResource("StandardMaterial3D_37uhj")
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_0pbe3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_8ussk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_q7bo1")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(5, 0, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 5

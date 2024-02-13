@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4k0bm8yytd45"]
+
+[ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_0pbe3"]
+[ext_resource type="Texture2D" uid="uid://hy5dnopmobtg" path="res://textures/grids/Red/texture_01.png" id="1_6cqfp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8ussk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_37uhj"]
+albedo_texture = ExtResource("1_6cqfp")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_q7bo1"]
+material = SubResource("StandardMaterial3D_37uhj")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jdf6f"]
+radius = 5.0
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_0pbe3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_8ussk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_q7bo1")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 2.0
+target_desired_distance = 2.0
+debug_enabled = true
+
+[node name="Raycasts" type="Node3D" parent="."]
+
+[node name="RayCast3D" type="RayCast3D" parent="Raycasts"]
+target_position = Vector3(5, 0, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 5
+
+[node name="RayCast3D2" type="RayCast3D" parent="Raycasts"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+target_position = Vector3(5, 0, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 5
+
+[node name="RayCast3D3" type="RayCast3D" parent="Raycasts"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(5, 0, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 5
+
+[node name="RayCast3D4" type="RayCast3D" parent="Raycasts"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
+target_position = Vector3(5, 0, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 5
+
+[node name="RayCast3D5" type="RayCast3D" parent="Raycasts"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(5, 0, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 5
+
+[node name="RayCast3D6" type="RayCast3D" parent="Raycasts"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+target_position = Vector3(5, 0, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 5
+
+[node name="EnableRayCast" type="Area3D" parent="."]
+
+[node name="EnableColision" type="CollisionShape3D" parent="EnableRayCast"]
+shape = SubResource("SphereShape3D_jdf6f")
+
+[connection signal="body_entered" from="EnableRayCast" to="." method="_on_enable_ray_cast_body_entered"]
+[connection signal="body_exited" from="EnableRayCast" to="." method="_on_enable_ray_cast_body_exited"]
