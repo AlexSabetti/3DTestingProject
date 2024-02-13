@@ -8,10 +8,10 @@
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_tlxsf")
-BaseSpeed = 3.0
-RunSpeedMod = 1.5
-JumpSpeed = 5.0
-BonusSpeedFromJumping = 1.1
+BaseSpeed = 6.0
+RunSpeedMod = 1.6
+JumpSpeed = 8.0
+BonusSpeedFromJumping = 1.4
 CrouchSpeedPenalty = 0.3
 Hits = 3
 PersonalGrav = 9.8

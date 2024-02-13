@@ -13,6 +13,7 @@ public partial class PlayerInput : CharacterBody3D
     [Export] public float PersonalGrav { get; set; }
     [Export] public float MouseSens { get; set; }
     [Signal] public delegate void PullupInvEventHandler();
+    //private Vector2 LastDir; //Turn off if test fails
 
     public string CurrentItemHeld = "Nothing";
     public Dictionary<string, Node3D> Items = new Dictionary<string, Node3D>()
@@ -62,7 +63,7 @@ public partial class PlayerInput : CharacterBody3D
                 item.player = this;
             }
         }
-
+        //LastDir = new Vector2(0,0); //Turn off if test fails
     }
 
     public override void _PhysicsProcess(double delta)
@@ -120,7 +121,7 @@ public partial class PlayerInput : CharacterBody3D
             }
         }
 
-        if (Input.IsActionJustPressed("toggle_flashlight"))
+        if (Input.IsActionJustPressed("Interact"))
         {
             if (ChangingHeld == false && CurrentItemHeld == "Flashlight")
             {
@@ -146,7 +147,8 @@ public partial class PlayerInput : CharacterBody3D
         if (!IsOnFloor()) velocity.Y -= PersonalGrav * (float)delta;
         GD.Print("Set VelY: " + velocity.Y);
         Vector2 movement = Input.GetVector("left", "right", "forward", "back");
-
+        
+        GD.Print("Movement Initial Vector: " + movement);
         if (Input.IsActionPressed("sprint"))
         {
             isRunning = true;
@@ -192,7 +194,6 @@ public partial class PlayerInput : CharacterBody3D
 
         velocity.X = movementDir.X * walkSpeedMod;
         velocity.Z = movementDir.Z * walkSpeedMod;
-
 
         this.Velocity = velocity;
         GD.Print("Direction X: " + movementDir.X);

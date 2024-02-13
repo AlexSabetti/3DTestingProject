@@ -1,9 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://cbmcnj7uapsfv"]
+[gd_scene load_steps=29 format=3 uid="uid://cbmcnj7uapsfv"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenuScript.cs" id="1_1ulpt"]
 [ext_resource type="Texture2D" uid="uid://c3dj27yg0yxeo" path="res://Textures/TempTitle.png" id="1_7umjt"]
-[ext_resource type="LabelSettings" uid="uid://b0b5wnl2b4plc" path="res://MainMenuText.tres" id="2_efqe4"]
+[ext_resource type="Script" path="res://Scripts/SettingsMenuScript.cs" id="2_p0nqk"]
+[ext_resource type="Texture2D" uid="uid://dmukr4egeval1" path="res://Textures/AlternativeCloseButton20x20y.png" id="3_0nkwo"]
 [ext_resource type="Script" path="res://Scripts/StartButtonScript.cs" id="4_72wkg"]
+[ext_resource type="LabelSettings" uid="uid://d0gkx65fu8q75" path="res://SettingsTextLabel.tres" id="4_gag7k"]
+[ext_resource type="StyleBox" uid="uid://nhxn5n5bctud" path="res://TabPanel.tres" id="5_7c7go"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xynrc"]
 size = Vector3(13, 1, 13)
@@ -23,13 +26,25 @@ size = Vector3(1, 18, 15)
 [sub_resource type="BoxMesh" id="BoxMesh_4mql8"]
 size = Vector3(1, 18, 15)
 
-[sub_resource type="LabelSettings" id="LabelSettings_dk8nk"]
-font_size = 25
-font_color = Color(0.611765, 0.345098, 0, 1)
-outline_size = 2
-outline_color = Color(0.521569, 0.294118, 0, 1)
-shadow_size = 4
-shadow_color = Color(0, 0, 0, 1)
+[sub_resource type="Theme" id="Theme_pa8sm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4mg0w"]
+font_size = 30
+
+[sub_resource type="Theme" id="Theme_62vj5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mmayl"]
+font_size = 20
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cre1w"]
+content_margin_left = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrtqn"]
+bg_color = Color(0.121317, 0.142138, 0.173369, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hy7rq"]
 size = Vector3(7, 1.3, 0.06)
@@ -52,6 +67,7 @@ material = SubResource("StandardMaterial3D_mkv2e")
 text = "Settings"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xjsee"]
+size = Vector3(7, 1.3, 0.06)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a71e6"]
 
@@ -64,7 +80,7 @@ script = ExtResource("1_1ulpt")
 StartButton = NodePath("InWorldNormalMenu/Start")
 SettingsButton = NodePath("InWorldNormalMenu/Settings")
 QuitButton = NodePath("InWorldNormalMenu/Quit")
-SettingsMenu = NodePath("Camera3D/MenuHUD")
+SettingsMenu = NodePath("Camera3D/SettingsHUD")
 
 [node name="3DSetup" type="Node3D" parent="."]
 
@@ -94,7 +110,7 @@ mesh = SubResource("BoxMesh_4mql8")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.711744, 0, 0.702439, 0, 1, 0, -0.702439, 0, 0.711744, 9.6778, 7.78648, 10.259)
 
-[node name="MenuHUD" type="MarginContainer" parent="Camera3D"]
+[node name="SettingsHUD" type="MarginContainer" parent="Camera3D"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -102,66 +118,206 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/margin_left = 70
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 70
-theme_override_constants/margin_bottom = 120
+theme = SubResource("Theme_pa8sm")
+script = ExtResource("2_p0nqk")
 
-[node name="FullContainer" type="HBoxContainer" parent="Camera3D/MenuHUD"]
+[node name="Background" type="ColorRect" parent="Camera3D/SettingsHUD"]
 layout_mode = 2
+color = Color(0.211765, 0.239216, 0.290196, 1)
 
-[node name="LeftSideContainer" type="VBoxContainer" parent="Camera3D/MenuHUD/FullContainer"]
+[node name="VSep" type="VBoxContainer" parent="Camera3D/SettingsHUD"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="TextureRect" type="TextureRect" parent="Camera3D/MenuHUD/FullContainer/LeftSideContainer"]
-texture_filter = 1
+[node name="Header" type="HBoxContainer" parent="Camera3D/SettingsHUD/VSep"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.0
-texture = ExtResource("1_7umjt")
-stretch_mode = 3
 
-[node name="MenuOptions" type="BoxContainer" parent="Camera3D/MenuHUD/FullContainer/LeftSideContainer"]
-texture_filter = 1
+[node name="HeaderBackground" type="ColorRect" parent="Camera3D/SettingsHUD/VSep/Header"]
 layout_mode = 2
-size_flags_stretch_ratio = 0.0
-vertical = true
+size_flags_horizontal = 3
+color = Color(0.145098, 0.168627, 0.203922, 1)
 
-[node name="Start" type="Label" parent="Camera3D/MenuHUD/FullContainer/LeftSideContainer/MenuOptions"]
+[node name="HeaderText" type="Label" parent="Camera3D/SettingsHUD/VSep/Header/HeaderBackground"]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Ply Bideo Gam"
-label_settings = ExtResource("2_efqe4")
+offset_left = 4.0
+offset_right = 153.0
+offset_bottom = 42.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+text = " Settings"
+label_settings = SubResource("LabelSettings_4mg0w")
+uppercase = true
 
-[node name="Settings" type="Label" parent="Camera3D/MenuHUD/FullContainer/LeftSideContainer/MenuOptions"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 4
+[node name="Exit" type="Button" parent="Camera3D/SettingsHUD/VSep/Header/HeaderBackground"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.97
+anchor_top = 0.175
+anchor_right = 0.994
+anchor_bottom = 0.875
+offset_left = -0.440063
+offset_right = -0.0880127
+grow_horizontal = 0
+grow_vertical = 2
 size_flags_vertical = 0
-text = "Settings"
-label_settings = ExtResource("2_efqe4")
+size_flags_stretch_ratio = 0.2
+icon = ExtResource("3_0nkwo")
 
-[node name="Quit" type="Label" parent="Camera3D/MenuHUD/FullContainer/LeftSideContainer/MenuOptions"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 2
-text = "Quit To Desktop"
-label_settings = SubResource("LabelSettings_dk8nk")
-
-[node name="BoxContainer" type="BoxContainer" parent="Camera3D/MenuHUD/FullContainer/LeftSideContainer"]
+[node name="Body" type="MarginContainer" parent="Camera3D/SettingsHUD/VSep"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
 
-[node name="Label" type="Label" parent="Camera3D/MenuHUD/FullContainer/LeftSideContainer/BoxContainer"]
+[node name="HSep" type="HBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body"]
+layout_mode = 2
+
+[node name="LeftSide" type="VBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "Version Alpha 1
-Don't know what else to put here lol
-- Just-Linx"
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.6
+theme = SubResource("Theme_62vj5")
+
+[node name="FPSBox" type="HBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide"]
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "WARNING: 
+Because of Godot's highly unstable 3D setup, extreme jittering may occur if the max frame rate isn't capped to your monitor's frame rate. Inconvienient, I know."
+
+[node name="FPSLabel" type="Label" parent="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide/FPSBox"]
+layout_mode = 2
+text = "Max FPS
+"
+label_settings = SubResource("LabelSettings_mmayl")
+
+[node name="FPSSpinInput" type="SpinBox" parent="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide/FPSBox"]
+layout_mode = 2
+size_flags_horizontal = 2
+max_value = 244.0
+value = 60.0
+rounded = true
+update_on_text_changed = true
+
+[node name="LineEdit" type="LineEdit" parent="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide/FPSBox/FPSSpinInput"]
+visible = false
+layout_mode = 2
+offset_right = 67.0625
+offset_bottom = 31.0
+text = "60"
+virtual_keyboard_type = 2
+caret_blink = true
+
+[node name="SoundBox" type="VBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide"]
+layout_mode = 2
+
+[node name="SoundHeader" type="HBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide/SoundBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide/SoundBox/SoundHeader"]
+layout_mode = 2
+text = "Volume:"
+label_settings = ExtResource("4_gag7k")
+
+[node name="SoundPercent" type="Label" parent="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide/SoundBox/SoundHeader"]
+layout_mode = 2
+text = "50%"
+label_settings = ExtResource("4_gag7k")
+
+[node name="SoundSlider" type="HSlider" parent="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide/SoundBox"]
+layout_mode = 2
+value = 50.0
+
+[node name="BrightnessBox" type="VBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide"]
+layout_mode = 2
+
+[node name="BrightnessHeader" type="HBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide/BrightnessBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide/BrightnessBox/BrightnessHeader"]
+layout_mode = 2
+text = "Brightness:"
+label_settings = ExtResource("4_gag7k")
+
+[node name="BrightnessPercent" type="Label" parent="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide/BrightnessBox/BrightnessHeader"]
+layout_mode = 2
+text = "50%"
+label_settings = ExtResource("4_gag7k")
+
+[node name="BrightnessSlider" type="HSlider" parent="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide/BrightnessBox"]
+layout_mode = 2
+value = 50.0
+
+[node name="RightSide" type="VBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BindingTabs" type="TabContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/side_margin = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_cre1w")
+
+[node name="Keyboard" type="ScrollContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide/BindingTabs"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("5_7c7go")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide/BindingTabs/Keyboard"]
+custom_minimum_size = Vector2(0, 1000)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_mrtqn")
+text = "MovementModifiers"
 horizontal_alignment = 1
+
+[node name="MovementModifierInputs" type="HBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SprintBox" type="HBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/SprintBox"]
+layout_mode = 2
+text = "Sprint"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/SprintBox"]
+layout_mode = 2
+text = "Shift"
+
+[node name="CrouchBox" type="HBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/CrouchBox"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/CrouchBox"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer"]
+layout_mode = 2
+
+[node name="Controller" type="ScrollContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide/BindingTabs"]
+visible = false
+layout_mode = 2
+
+[node name="ContVBox" type="VBoxContainer" parent="Camera3D/SettingsHUD/VSep/Body/HSep/RightSide/BindingTabs/Controller"]
+custom_minimum_size = Vector2(0, 1000)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.874888, -0.370963, 0.311379, 0.349488, 0.928648, 0.124385, -0.335304, 1.99857e-08, 0.94211, 7, 8, 2)
@@ -209,4 +365,10 @@ shape = SubResource("BoxShape3D_xjsee")
 transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
 mesh = SubResource("TextMesh_tsd0r")
 
+[connection signal="SettingsToggleOff" from="Camera3D/SettingsHUD" to="." method="DeactivateSettings"]
+[connection signal="visibility_changed" from="Camera3D/SettingsHUD" to="Camera3D/SettingsHUD" method="OnVisibilityChanged"]
+[connection signal="pressed" from="Camera3D/SettingsHUD/VSep/Header/HeaderBackground/Exit" to="Camera3D/SettingsHUD" method="CloseOutSettings"]
+[connection signal="value_changed" from="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide/FPSBox/FPSSpinInput" to="Camera3D/SettingsHUD" method="UpdateFPS"]
+[connection signal="value_changed" from="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide/SoundBox/SoundSlider" to="Camera3D/SettingsHUD" method="UpdateVolume"]
+[connection signal="value_changed" from="Camera3D/SettingsHUD/VSep/Body/HSep/LeftSide/BrightnessBox/BrightnessSlider" to="Camera3D/SettingsHUD" method="UpdateBrightness"]
 [connection signal="input_event" from="InWorldNormalMenu/Start" to="." method="InteractedStartButton"]
