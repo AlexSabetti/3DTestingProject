@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0wcp0wtm3xqr"]
+[gd_scene load_steps=5 format=3 uid="uid://b0wcp0wtm3xqr"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerInput.cs" id="1_tlxsf"]
+[ext_resource type="Script" path="res://Scripts/PlayerInteractRay.cs" id="2_ige8j"]
 [ext_resource type="Script" path="res://Scripts/PlayerAnimation_Manager.cs" id="2_tqrjp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jvxt3"]
@@ -9,18 +10,56 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_tlxsf")
 BaseSpeed = 6.0
+MaxSpeed = 12.0
 RunSpeedMod = 1.6
-JumpSpeed = 8.0
+JumpSpeed = 6.0
 BonusSpeedFromJumping = 1.4
 CrouchSpeedPenalty = 0.3
 Hits = 3
-PersonalGrav = 9.8
+PersonalGrav = 12.8
 MouseSens = 0.002
 
 [node name="Pivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
+[node name="MyVision" type="RayCast3D" parent="Pivot"]
+target_position = Vector3(0, 0, -3)
+debug_shape_custom_color = Color(0, 0.298039, 0.592157, 1)
+debug_shape_thickness = 3
+script = ExtResource("2_ige8j")
+
 [node name="MyEyes" type="Camera3D" parent="Pivot"]
+
+[node name="MyThoughts" type="Control" parent="Pivot/MyEyes"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="CenterPrompt" type="Label" parent="Pivot/MyEyes/MyThoughts"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = 16.0
+offset_right = 0.5
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"TooltipLabel"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "
+"
 
 [node name="Model" type="Node3D" parent="Pivot"]
 

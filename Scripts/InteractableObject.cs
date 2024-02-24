@@ -6,17 +6,23 @@ using System;
  */
 public partial class InteractableObject : StaticBody3D 
 {
+    /** Name of the object*/
     [Export] public string ObjectName {get; set;}
+    /** */
+    [Export] public string PromptAction {get; set;}
+    [Signal] public delegate void CanInteractEventHandler(Node3D node);
+    [Signal] public delegate void CannotInteractEventHandler(Node3D node);
 
-    public bool interactable;
+    [Export] public bool Interactable {get; set;} = true;
+    [Export] public string InteractPrompt;
 
-    public virtual bool MouseOn() 
+    public virtual bool Activated(CharacterBody3D interactor)
     {
-        return false; //Must be overwritten
-    } 
+        return false;
+    }
 
-    public virtual bool MouseOff()
+    public virtual string GetHoverTip()
     {
-        return true; //Must be overwritten
+        return string.Empty;
     }
 }

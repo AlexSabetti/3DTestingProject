@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://3lktgwswf0xr"]
+
+[ext_resource type="Script" path="res://Scripts/MovingTurningPlatformConcept.cs" id="1_kqhmi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3ixev"]
+size = Vector3(2.5, 7, 2.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ck00w"]
+size = Vector3(2.5, 7, 2.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ll831"]
+size = Vector3(2.5, 1, 7)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gu5gk"]
+size = Vector3(2.5, 1, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lerxr"]
+size = Vector3(7, 1, 2.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qmg1q"]
+size = Vector3(7, 1, 2.5)
+
+[node name="Turnstile" type="Node3D"]
+script = ExtResource("1_kqhmi")
+TurnSpeed = 1.0
+MaxRotTime = 3.0
+TotalPositions = 4
+
+[node name="SupportPillar" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SupportPillar"]
+shape = SubResource("BoxShape3D_3ixev")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SupportPillar"]
+mesh = SubResource("BoxMesh_ck00w")
+
+[node name="PlatformA" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 4.75)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlatformA"]
+shape = SubResource("BoxShape3D_ll831")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlatformA"]
+mesh = SubResource("BoxMesh_gu5gk")
+
+[node name="PlatformB" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 3, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlatformB"]
+shape = SubResource("BoxShape3D_lerxr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlatformB"]
+mesh = SubResource("BoxMesh_qmg1q")

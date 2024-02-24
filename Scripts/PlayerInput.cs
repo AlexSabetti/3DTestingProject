@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public partial class PlayerInput : CharacterBody3D
 {
     [Export] public float BaseSpeed { get; set; }
+    [Export] public float MaxSpeed {get; set;}
+    [Export] public float AirSpeedDecay {get; set;}
+    [Export] public float AirControlPenalty {get; set;}
     [Export] public float RunSpeedMod { get; set; }
     [Export] public float JumpSpeed { get; set; }
     [Export] public float BonusSpeedFromJumping { get; set; }
@@ -44,15 +47,18 @@ public partial class PlayerInput : CharacterBody3D
     public bool ChangingHeld = false;
 
     public AnimationPlayer animationPlayer;
-
+    //public RayCast3D InteractRay;
     public Camera3D charCam;
+    public Node3D Pivot;
     public Vector3 velocity = new();
 
     public bool isRunning = false;
     public bool isCrouching = false;
     public override void _Ready()
     {
+        //InteractRay = GetNode<RayCast3D>("Pivot/MyVision");
         charCam = GetNode<Camera3D>("Pivot/MyEyes");
+        Pivot = GetNode<Node3D>("Pivot");
         Input.MouseMode = Input.MouseModeEnum.Captured;
         charCam.MakeCurrent();
         animationPlayer = GetNode<AnimationPlayer>("Pivot/Model/AnimationPlayer");
@@ -63,6 +69,8 @@ public partial class PlayerInput : CharacterBody3D
                 item.player = this;
             }
         }
+        //AirSpeedDecay = Math.Clamp(AirSpeedDecay, 0.001f, 1f);
+        AirControlPenalty = Math.Clamp(AirControlPenalty, -2, 2);
         //LastDir = new Vector2(0,0); //Turn off if test fails
     }
 
@@ -144,11 +152,15 @@ public partial class PlayerInput : CharacterBody3D
 
         float walkSpeedMod = BaseSpeed;
 
-        if (!IsOnFloor()) velocity.Y -= PersonalGrav * (float)delta;
-        GD.Print("Set VelY: " + velocity.Y);
+        if (!IsOnFloor()) 
+        {
+            velocity.Y -= PersonalGrav * (float)delta;
+            
+        }
+        //GD.Print("Set VelY: " + velocity.Y);
         Vector2 movement = Input.GetVector("left", "right", "forward", "back");
         
-        GD.Print("Movement Initial Vector: " + movement);
+        //GD.Print("Movement Initial Vector: " + movement);
         if (Input.IsActionPressed("sprint"))
         {
             isRunning = true;
@@ -180,27 +192,29 @@ public partial class PlayerInput : CharacterBody3D
             {
                 velocity.Y = JumpSpeed - (JumpSpeed / 4);
             }
-            else if (!isRunning && isCrouching)
+            /*else if (!isRunning && isCrouching)
             {
-                velocity.Y = JumpSpeed + (JumpSpeed / 4);
-            }
+                velocity.Y = JumpSpeed + (JumpSpeed / 4); //Removed for the time being
+            }*/
             else
             {
                 velocity.Y = JumpSpeed;
             }
 
             walkSpeedMod *= BonusSpeedFromJumping; //Also subject to change
+            
         }
+        
 
         velocity.X = movementDir.X * walkSpeedMod;
         velocity.Z = movementDir.Z * walkSpeedMod;
 
         this.Velocity = velocity;
-        GD.Print("Direction X: " + movementDir.X);
-        GD.Print("Direction Z: " + movementDir.Z);
+        // GD.Print("Direction X: " + movementDir.X);
+        // GD.Print("Direction Z: " + movementDir.Z);
 
-        GD.Print("Move X: " + Velocity.X);
-        GD.Print("Move Z: " + Velocity.Z);
+        // GD.Print("Move X: " + Velocity.X);
+        // GD.Print("Move Z: " + Velocity.Z);
         //GD.Print("Actual VelY: " + Velocity.Y);
         MoveAndSlide();
     }
@@ -264,12 +278,12 @@ public partial class PlayerInput : CharacterBody3D
     {
         RotateY(-move.X);
         //charCam.Orthonormalize();
-        charCam.RotateX(-move.Y);
-        charCam.Rotation = new Vector3(Mathf.Clamp(charCam.Rotation.X, -Mathf.DegToRad(70), Mathf.DegToRad(70)), 0, 0);
+        Pivot.RotateX(-move.Y);
+        Pivot.Rotation = new Vector3(Mathf.Clamp(Pivot.Rotation.X, -Mathf.DegToRad(70), Mathf.DegToRad(70)), 0, 0);
 
-        GD.Print("CamXRot: " + charCam.Rotation.X);
-        GD.Print("CamYRot: " + charCam.Rotation.Y);
-        GD.Print("CamZRot: " + charCam.Rotation.Z);
+        //GD.Print("CamXRot: " + Pivot.Rotation.X);
+        //GD.Print("CamYRot: " + Pivot.Rotation.Y);
+        //GD.Print("CamZRot: " + Pivot.Rotation.Z);
     }
 
     public override void _UnhandledKeyInput(InputEvent @keyPress)
