@@ -1,0 +1,350 @@
+[gd_scene load_steps=11 format=3 uid="uid://ctc6o4emkemtu"]
+
+[ext_resource type="Script" path="res://Scripts/SettingsMenuScripGDVer.gd" id="1_ojqn8"]
+[ext_resource type="Texture2D" uid="uid://dmukr4egeval1" path="res://Textures/AlternativeCloseButton20x20y.png" id="2_modr6"]
+[ext_resource type="LabelSettings" uid="uid://d0gkx65fu8q75" path="res://Textures/SettingsTextLabel.tres" id="3_402ei"]
+[ext_resource type="StyleBox" uid="uid://nhxn5n5bctud" path="res://Textures/TabPanel.tres" id="4_fn58h"]
+
+[sub_resource type="Theme" id="Theme_pa8sm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4mg0w"]
+font_size = 30
+
+[sub_resource type="Theme" id="Theme_62vj5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mmayl"]
+font_size = 20
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cre1w"]
+content_margin_left = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrtqn"]
+bg_color = Color(0.121317, 0.142138, 0.173369, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[node name="SettingsHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ojqn8")
+
+[node name="FullBox" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_pa8sm")
+
+[node name="Background" type="ColorRect" parent="FullBox"]
+layout_mode = 2
+color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[node name="VSep" type="VBoxContainer" parent="FullBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Header" type="HBoxContainer" parent="FullBox/VSep"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HeaderBackground" type="ColorRect" parent="FullBox/VSep/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.145098, 0.168627, 0.203922, 1)
+
+[node name="HeaderText" type="Label" parent="FullBox/VSep/Header/HeaderBackground"]
+layout_mode = 2
+offset_left = 4.0
+offset_right = 153.0
+offset_bottom = 42.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+text = " Settings"
+label_settings = SubResource("LabelSettings_4mg0w")
+uppercase = true
+
+[node name="Exit" type="Button" parent="FullBox/VSep/Header/HeaderBackground"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.97
+anchor_top = 0.175
+anchor_right = 0.994
+anchor_bottom = 0.875
+offset_left = -0.440063
+offset_right = -0.0880127
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.2
+icon = ExtResource("2_modr6")
+
+[node name="Body" type="MarginContainer" parent="FullBox/VSep"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="HSep" type="HBoxContainer" parent="FullBox/VSep/Body"]
+layout_mode = 2
+
+[node name="LeftSide" type="VBoxContainer" parent="FullBox/VSep/Body/HSep"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.6
+theme = SubResource("Theme_62vj5")
+
+[node name="FPSBox" type="HBoxContainer" parent="FullBox/VSep/Body/HSep/LeftSide"]
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "WARNING: 
+Because of Godot's highly unstable 3D setup, extreme jittering may occur if the max frame rate isn't capped to your monitor's frame rate. Inconvienient, I know."
+
+[node name="FPSLabel" type="Label" parent="FullBox/VSep/Body/HSep/LeftSide/FPSBox"]
+layout_mode = 2
+text = "Max FPS
+"
+label_settings = SubResource("LabelSettings_mmayl")
+
+[node name="FPSSpinInput" type="SpinBox" parent="FullBox/VSep/Body/HSep/LeftSide/FPSBox"]
+layout_mode = 2
+size_flags_horizontal = 2
+max_value = 244.0
+value = 60.0
+rounded = true
+update_on_text_changed = true
+
+[node name="LineEdit" type="LineEdit" parent="FullBox/VSep/Body/HSep/LeftSide/FPSBox/FPSSpinInput"]
+visible = false
+layout_mode = 2
+offset_right = 67.0625
+offset_bottom = 31.0
+text = "60"
+virtual_keyboard_type = 2
+caret_blink = true
+
+[node name="SoundBox" type="VBoxContainer" parent="FullBox/VSep/Body/HSep/LeftSide"]
+layout_mode = 2
+
+[node name="SoundHeader" type="HBoxContainer" parent="FullBox/VSep/Body/HSep/LeftSide/SoundBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="FullBox/VSep/Body/HSep/LeftSide/SoundBox/SoundHeader"]
+layout_mode = 2
+text = "Volume:"
+label_settings = ExtResource("3_402ei")
+
+[node name="SoundPercent" type="Label" parent="FullBox/VSep/Body/HSep/LeftSide/SoundBox/SoundHeader"]
+layout_mode = 2
+text = "50%"
+label_settings = ExtResource("3_402ei")
+
+[node name="SoundSlider" type="HSlider" parent="FullBox/VSep/Body/HSep/LeftSide/SoundBox"]
+layout_mode = 2
+value = 50.0
+
+[node name="BrightnessBox" type="VBoxContainer" parent="FullBox/VSep/Body/HSep/LeftSide"]
+layout_mode = 2
+
+[node name="BrightnessHeader" type="HBoxContainer" parent="FullBox/VSep/Body/HSep/LeftSide/BrightnessBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="FullBox/VSep/Body/HSep/LeftSide/BrightnessBox/BrightnessHeader"]
+layout_mode = 2
+text = "Brightness:"
+label_settings = ExtResource("3_402ei")
+
+[node name="BrightnessPercent" type="Label" parent="FullBox/VSep/Body/HSep/LeftSide/BrightnessBox/BrightnessHeader"]
+layout_mode = 2
+text = "50%"
+label_settings = ExtResource("3_402ei")
+
+[node name="BrightnessSlider" type="HSlider" parent="FullBox/VSep/Body/HSep/LeftSide/BrightnessBox"]
+layout_mode = 2
+value = 50.0
+
+[node name="RightSide" type="VBoxContainer" parent="FullBox/VSep/Body/HSep"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BindingTabs" type="TabContainer" parent="FullBox/VSep/Body/HSep/RightSide"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/side_margin = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_cre1w")
+tab_alignment = 1
+
+[node name="Keyboard" type="ScrollContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("4_fn58h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard"]
+custom_minimum_size = Vector2(0, 1000)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_mrtqn")
+text = "Movement"
+horizontal_alignment = 1
+
+[node name="MovementModifierInputs" type="HBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SprintBox" type="HBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/SprintBox"]
+layout_mode = 2
+theme_type_variation = &"HeaderSmall"
+text = "Sprint"
+label_settings = ExtResource("3_402ei")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/SprintBox"]
+layout_mode = 2
+text = "Shift"
+
+[node name="CrouchBox" type="HBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/CrouchBox"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/CrouchBox"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer"]
+layout_mode = 2
+
+[node name="Controller" type="ScrollContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs"]
+visible = false
+layout_mode = 2
+
+[node name="ContVBox" type="VBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Controller"]
+custom_minimum_size = Vector2(0, 1000)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BlurOutFocus" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.109804, 0.109804, 0.109804, 0.54902)
+
+[node name="ConfirmChangeBox" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.3
+anchor_right = 0.6
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 8
+
+[node name="Border" type="ColorRect" parent="ConfirmChangeBox"]
+layout_mode = 2
+color = Color(0.461546, 0.467434, 0.469955, 1)
+
+[node name="ActualContainer" type="VBoxContainer" parent="ConfirmChangeBox/Border"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 217.0
+offset_bottom = 108.0
+
+[node name="ChangeSaveses" type="Label" parent="ConfirmChangeBox/Border/ActualContainer"]
+layout_mode = 2
+text = "Save Changes?"
+horizontal_alignment = 1
+
+[node name="Confirm" type="Button" parent="ConfirmChangeBox/Border/ActualContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+text = "Confirm"
+
+[node name="Discard" type="Button" parent="ConfirmChangeBox/Border/ActualContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+text = "Discard"
+
+[node name="InputMappingBox" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.4
+anchor_right = 0.6
+anchor_bottom = 0.5
+
+[node name="ColorRect" type="ColorRect" parent="InputMappingBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+color = Color(0.136826, 0.136826, 0.136826, 1)
+
+[node name="InputArea" type="TextEdit" parent="InputMappingBox/ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+mouse_filter = 2
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+caret_blink = true
+caret_draw_when_editable_disabled = true
+caret_move_on_right_click = false
+caret_multiple = false
+
+[node name="InputPlacementPrompt" type="Label" parent="InputMappingBox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Input replacement"
+horizontal_alignment = 1
+
+[connection signal="visibility_changed" from="." to="." method="on_visibility_changed"]
+[connection signal="pressed" from="FullBox/VSep/Header/HeaderBackground/Exit" to="FullBox" method="CloseOutSettings"]
+[connection signal="value_changed" from="FullBox/VSep/Body/HSep/LeftSide/FPSBox/FPSSpinInput" to="FullBox" method="UpdateFPS"]
+[connection signal="value_changed" from="FullBox/VSep/Body/HSep/LeftSide/SoundBox/SoundSlider" to="FullBox" method="UpdateVolume"]
+[connection signal="value_changed" from="FullBox/VSep/Body/HSep/LeftSide/BrightnessBox/BrightnessSlider" to="FullBox" method="UpdateBrightness"]

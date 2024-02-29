@@ -9,7 +9,7 @@ signal button_was_pressed(interactor: CharacterBody3D)
 func _ready():
 	if object_name == "": 
 		object_name = "button"
-
+		
 func activated(interactor: CharacterBody3D) -> bool:
 	if locked:
 		#play a sound, but otherwise do nothing. Maybe a click?
@@ -37,6 +37,7 @@ func finished():
 		can_interact = true
 
 func get_hover_tip() -> String:
+	print("Attempting to get hovertip")
 	var key_name = ""
 	for inputevent: InputEvent in InputMap.action_get_events(prompt_action):
 			var specific_key: InputEventKey

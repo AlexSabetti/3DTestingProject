@@ -1,32 +1,23 @@
 [gd_scene load_steps=5 format=3 uid="uid://b0wcp0wtm3xqr"]
 
-[ext_resource type="Script" path="res://Scripts/PlayerInput.cs" id="1_tlxsf"]
-[ext_resource type="Script" path="res://Scripts/PlayerInteractRay.cs" id="2_ige8j"]
+[ext_resource type="Script" path="res://Scripts/PlayerControlsGDVer.gd" id="1_m4115"]
+[ext_resource type="Script" path="res://Scripts/PlayerInteractRayGDVer.gd" id="2_dna1e"]
 [ext_resource type="Script" path="res://Scripts/PlayerAnimation_Manager.cs" id="2_tqrjp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jvxt3"]
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-script = ExtResource("1_tlxsf")
-BaseSpeed = 6.0
-MaxSpeed = 12.0
-RunSpeedMod = 1.6
-JumpSpeed = 6.0
-BonusSpeedFromJumping = 1.4
-CrouchSpeedPenalty = 0.3
-Hits = 3
-PersonalGrav = 12.8
-MouseSens = 0.002
+script = ExtResource("1_m4115")
 
 [node name="Pivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="MyVision" type="RayCast3D" parent="Pivot"]
-target_position = Vector3(0, 0, -3)
+target_position = Vector3(0, 0, -4)
 debug_shape_custom_color = Color(0, 0.298039, 0.592157, 1)
 debug_shape_thickness = 3
-script = ExtResource("2_ige8j")
+script = ExtResource("2_dna1e")
 
 [node name="MyEyes" type="Camera3D" parent="Pivot"]
 

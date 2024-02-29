@@ -2,11 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://5bq6hh8154tm" path="res://Textures/TestFloorPattern.png" id="1_iuw2d"]
 [ext_resource type="PackedScene" uid="uid://b0wcp0wtm3xqr" path="res://Scenes/player.tscn" id="1_wosbx"]
-[ext_resource type="Script" path="res://Scripts/PlayerControlsGDVer.gd" id="3_cbac5"]
 [ext_resource type="PackedScene" uid="uid://dskeyj18ele3j" path="res://Objects/SealDoor.tscn" id="3_ois8m"]
-[ext_resource type="Script" path="res://Scripts/PressureButton.cs" id="4_mhqm7"]
+[ext_resource type="Script" path="res://Scripts/SealLogicGDVer.gd" id="4_36j8y"]
+[ext_resource type="Script" path="res://Scripts/PressureButtonGDVer.gd" id="5_fcm3w"]
 [ext_resource type="PackedScene" uid="uid://3lktgwswf0xr" path="res://turnstile.tscn" id="6_wi7um"]
-[ext_resource type="PackedScene" uid="uid://cul85dkj08pdv" path="res://Objects/Pillar.dae" id="7_wfjl6"]
+[ext_resource type="PackedScene" uid="uid://bubwlyhpvukk6" path="res://ActualMap.tscn" id="7_d261s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5wb37"]
 size = Vector3(60, 1, 60)
@@ -60,18 +60,8 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1000)
 
 [node name="Player" parent="." instance=ExtResource("1_wosbx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.59929, -1000)
-script = ExtResource("3_cbac5")
-base_speed = 6.0
-max_speed = 8.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.599, 0)
 run_speed_mod = 1.2
-bonus_speed_from_jump = 1.1
-crouch_speed_penalty = 0.3
-crouch_max_air_speed = 4.0
-mouse_sens = 0.003
-personal_grav = 18.8
-jump_speed = 6.0
-air_control_penalty = 0.03
 
 [node name="MapMockup" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -515)
@@ -83,12 +73,21 @@ sky_mode = 1
 
 [node name="SealA" parent="." instance=ExtResource("3_ois8m")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -7.30107, 3.33517, -1000)
+script = ExtResource("4_36j8y")
+movement_time = 3.0
+to_move_x = 0.0
+to_move_y = 10.0
+to_move_z = 0.0
+object_name = ""
+prompt_action = ""
+can_interact = true
+interact_prompt = ""
 
 [node name="ButtonA" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45753, 2.98942)
-script = ExtResource("4_mhqm7")
-LocksAfterUse = true
-PromptAction = "Interact"
+script = ExtResource("5_fcm3w")
+locks_after_use = true
+prompt_action = "Interact"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ButtonA"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1000)
@@ -100,9 +99,9 @@ mesh = SubResource("BoxMesh_ywuit")
 
 [node name="ButtonB" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.137, 1.6293, 3.15661)
-script = ExtResource("4_mhqm7")
-ObjectName = "ToggleButton"
-PromptAction = "Interact"
+script = ExtResource("5_fcm3w")
+object_name = "ToggleButton"
+prompt_action = "Interact"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ButtonB"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1000)
@@ -117,10 +116,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.6106, -2.77192, -1000)
 TurnSpeed = 5.0
 TotalPositions = 8
 
-[node name="Pillar" parent="." instance=ExtResource("7_wfjl6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.6166, 1.0925, -1000)
+[node name="CyclopsBlock" parent="." instance=ExtResource("7_d261s")]
 
-[connection signal="Finished" from="SealA" to="ButtonA" method="Finished"]
-[connection signal="ButtonWasPressed" from="ButtonA" to="SealA" method="Activated"]
-[connection signal="ButtonWasPressed" from="ButtonB" to="Turnstile" method="ChangeState"]
-[connection signal="FinishedChange" from="Turnstile" to="ButtonB" method="Finished"]
+[connection signal="finished_movement" from="SealA" to="ButtonA" method="finished"]
+[connection signal="button_was_pressed" from="ButtonA" to="SealA" method="activated"]
+[connection signal="button_was_pressed" from="ButtonB" to="Turnstile" method="ChangeState"]
+[connection signal="FinishedChange" from="Turnstile" to="ButtonB" method="finished"]
