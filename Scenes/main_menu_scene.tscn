@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://cbmcnj7uapsfv"]
 
-[ext_resource type="Script" path="res://Scripts/MainMenuScript.cs" id="1_2al31"]
+[ext_resource type="Script" path="res://Scripts/MainMenuScriptGDVer.gd" id="1_p5i5w"]
 [ext_resource type="PackedScene" uid="uid://ctc6o4emkemtu" path="res://settings_hud.tscn" id="2_n032f"]
 [ext_resource type="Texture2D" uid="uid://c3dj27yg0yxeo" path="res://Textures/TempTitle.png" id="6_ao1ut"]
 [ext_resource type="Script" path="res://Scripts/StartButtonScript.cs" id="7_3y5k0"]
@@ -52,12 +52,12 @@ size = Vector3(7, 1.3, 0.06)
 material = SubResource("StandardMaterial3D_a71e6")
 text = "Quit to Desktop"
 
-[node name="MainMenuScene" type="Node3D" node_paths=PackedStringArray("StartButton", "SettingsButton", "QuitButton", "SettingsMenu")]
-script = ExtResource("1_2al31")
-StartButton = NodePath("InWorldNormalMenu/Start")
-SettingsButton = NodePath("InWorldNormalMenu/Settings")
-QuitButton = NodePath("InWorldNormalMenu/Quit")
-SettingsMenu = NodePath("")
+[node name="MainMenuScene" type="Node3D" node_paths=PackedStringArray("start_button", "settings_button", "quit_button", "settings_menu")]
+script = ExtResource("1_p5i5w")
+start_button = NodePath("InWorldNormalMenu/Start")
+settings_button = NodePath("InWorldNormalMenu/Settings")
+quit_button = NodePath("InWorldNormalMenu/Quit")
+settings_menu = NodePath("Camera3D/SettingsHUD")
 
 [node name="3DSetup" type="Node3D" parent="."]
 
@@ -135,4 +135,8 @@ shape = SubResource("BoxShape3D_xjsee")
 transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
 mesh = SubResource("TextMesh_tsd0r")
 
+[connection signal="SettingsToggleOff" from="Camera3D/SettingsHUD" to="." method="deactivate_settings"]
 [connection signal="input_event" from="InWorldNormalMenu/Start" to="." method="InteractedStartButton"]
+[connection signal="input_event" from="InWorldNormalMenu/Start" to="." method="interacted_start_button"]
+[connection signal="input_event" from="InWorldNormalMenu/Settings" to="." method="interacted_settings_button"]
+[connection signal="input_event" from="InWorldNormalMenu/Quit" to="." method="interacted_quit_button"]

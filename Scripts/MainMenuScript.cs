@@ -21,8 +21,7 @@ public partial class MainMenuScript : Node3D
     {
         StartButton = GetNode<StaticBody3D>("InWorldNormalMenu/Start");
         SettingsButton = GetNode<StaticBody3D>("InWorldNormalMenu/Settings");
-        QuitButton = GetNode<StaticBody3D>("InWorldNormalMenu/Quit");
-
+        QuitButton = GetNode<StaticBody3D>("InWorldNormalMenu/Quit");  
         StartButton.InputEvent += InteractedStartButton;
         SettingsButton.InputEvent += InteractedSettingsButton;
         QuitButton.InputEvent += InteractedQuitButton;

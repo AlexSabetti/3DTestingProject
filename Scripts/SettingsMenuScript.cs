@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class SettingsMenuScript : MarginContainer 
+public partial class SettingsMenuScript : Control 
 {
     [Signal] public delegate void SettingsToggleOffEventHandler();
     private VBoxContainer settingsContent;
@@ -15,11 +15,11 @@ public partial class SettingsMenuScript : MarginContainer
 
     public override void _Ready()
     {
-        settingsContent = GetNode<VBoxContainer>("VSep");
-        CloseOutButton = GetNode<Button>("VSep/Header/HeaderBackground/Exit");
-        FPSSettings = GetNode<HBoxContainer>("VSep/Body/HSep/LeftSide/FPSBox");
-        BrightnessSettings = GetNode<VBoxContainer>("VSep/Body/HSep/LeftSide/BrightnessBox");
-        SoundSettings = GetNode<VBoxContainer>("VSep/Body/HSep/LeftSide/SoundBox");
+        settingsContent = GetNode<VBoxContainer>("FullBox/VSep");
+        CloseOutButton = GetNode<Button>("FullBox/VSep/Header/HeaderBackground/Exit");
+        FPSSettings = GetNode<HBoxContainer>("FullBox/VSep/Body/HSep/LeftSide/FPSBox");
+        BrightnessSettings = GetNode<VBoxContainer>("FullBox/VSep/Body/HSep/LeftSide/BrightnessBox");
+        SoundSettings = GetNode<VBoxContainer>("FullBox/VSep/Body/HSep/LeftSide/SoundBox");
 
 
 

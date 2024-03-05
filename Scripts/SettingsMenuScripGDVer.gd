@@ -14,10 +14,10 @@ signal settings_toggle_off()
 
 var changes = {}
 
-var settings_lookup = {
-	"bright": confirm_brightness(),
-	"volume": confirm_volume(),
-	"fps": confirm_fps()#,
+var input_lookup = {
+	"bright":"confirm_brightness",
+	"volume":"confirm_volume",
+	"fps":"confirm_fps"#,
 	#"keyboard": confirm_keyboard_controls(),
 	#"controller": confirm_controller_controls()
 }
@@ -43,12 +43,8 @@ func bring_up_confirm_change():
 
 func confirm_changes():
 	if not changes.is_empty():
-		if changes.has("bright"):
-			pass
-		if changes.has("volume"):
-			pass
-		if changes.has("fps"):
-			ProjectSettings.set_setting("application/run/max_fps", clampi(changes["fps"], 30, 144))
+		for key in changes:
+			call(input_lookup[key])
 	need_to_confirm_changes = false
 	changes = {}
 	close_out_settings()
@@ -61,7 +57,8 @@ func discard_changes():
 	close_out_settings()
 
 func close_out_settings():
-	hide()
+	settings_content.visible = false
+	settings_toggle_off.emit()
 
 func on_visibility_changed():
 	settings_content.set_process(visible)
@@ -98,4 +95,5 @@ func confirm_fps():
 	ProjectSettings.set_setting("application/run/max_fps", clampi(changes["fps"], 30, 144))
 
 
-
+func _on_settings_input_event(camera, event, position, normal, shape_idx):
+	pass # Replace with function body.

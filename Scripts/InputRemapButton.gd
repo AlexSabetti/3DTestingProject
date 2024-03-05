@@ -2,9 +2,9 @@ class_name InputRemapButton
 extends Button
 
 @export var input_action: String
-@onready var input_settings_popup: VBoxContainer = get_node("./SettingsHUD/InputMappingBox")
-@onready var focus_box: ColorRect = get_node("./SettingsHUD/BlurOutFocus")
-signal input_assign_call(button:Button, event, input_action)
+@onready var input_settings_popup: VBoxContainer = get_tree().root.get_node("MainMenuScene/Camera3D/SettingsHUD/InputMappingBox")
+@onready var focus_box: ColorRect = get_tree().root.get_node("MainMenuScene/Camera3D/SettingsHUD/BlurOutFocus")
+signal input_blackout()
 func _init():
 	toggle_mode = true
 
@@ -21,6 +21,7 @@ func _toggled(button_pressed):
 	else:
 		input_settings_popup.visible = false
 		focus_box.visible = false
+		update_input_text()
 		grab_focus()
 		
 
@@ -29,7 +30,8 @@ func update_input_text():
 
 func _unhandled_input(event):
 	if event.is_pressed():
-		input_assign_call.emit(self, event, input_action)
+		InputMap.action_erase_events(input_action)
+		InputMap.action_add_event(input_action, event)
 		button_pressed = false
 
 

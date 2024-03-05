@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://ctc6o4emkemtu"]
+[gd_scene load_steps=12 format=3 uid="uid://ctc6o4emkemtu"]
 
-[ext_resource type="Script" path="res://Scripts/SettingsMenuScripGDVer.gd" id="1_ojqn8"]
+[ext_resource type="Script" path="res://Scripts/SettingsMenuScript.cs" id="1_3tl4q"]
 [ext_resource type="Texture2D" uid="uid://dmukr4egeval1" path="res://Textures/AlternativeCloseButton20x20y.png" id="2_modr6"]
 [ext_resource type="LabelSettings" uid="uid://d0gkx65fu8q75" path="res://Textures/SettingsTextLabel.tres" id="3_402ei"]
 [ext_resource type="StyleBox" uid="uid://nhxn5n5bctud" path="res://Textures/TabPanel.tres" id="4_fn58h"]
+[ext_resource type="Script" path="res://Scripts/InputRemapButton.gd" id="5_kf6b5"]
 
 [sub_resource type="Theme" id="Theme_pa8sm"]
 
@@ -32,7 +33,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ojqn8")
+script = ExtResource("1_3tl4q")
 
 [node name="FullBox" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -88,6 +89,8 @@ grow_vertical = 2
 size_flags_vertical = 0
 size_flags_stretch_ratio = 0.2
 icon = ExtResource("2_modr6")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Body" type="MarginContainer" parent="FullBox/VSep"]
 layout_mode = 2
@@ -201,7 +204,7 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer"]
+[node name="MovementLabel" type="Label" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_mrtqn")
 text = "Movement"
@@ -212,26 +215,116 @@ layout_mode = 2
 
 [node name="SprintBox" type="HBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+alignment = 1
 
-[node name="Label" type="Label" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/SprintBox"]
+[node name="SprintText" type="Label" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/SprintBox"]
 layout_mode = 2
 theme_type_variation = &"HeaderSmall"
 text = "Sprint"
 label_settings = ExtResource("3_402ei")
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/SprintBox"]
+[node name="SprintInput" type="Button" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/SprintBox"]
 layout_mode = 2
 text = "Shift"
+script = ExtResource("5_kf6b5")
+input_action = "sprint"
 
 [node name="CrouchBox" type="HBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+alignment = 1
 
-[node name="Label" type="Label" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/CrouchBox"]
+[node name="CrouchText" type="Label" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/CrouchBox"]
+layout_mode = 2
+text = "Crouch
+"
+label_settings = ExtResource("3_402ei")
+
+[node name="CrouchInput" type="Button" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/CrouchBox"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Ctrl"
+script = ExtResource("5_kf6b5")
+input_action = "crouch"
+
+[node name="WASDBox" type="HBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/MovementModifierInputs/CrouchBox"]
+[node name="ForwardBox" type="HBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/WASDBox"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+alignment = 1
+
+[node name="ForwardText" type="Label" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/WASDBox/ForwardBox"]
+layout_mode = 2
+text = "Forwards"
+label_settings = ExtResource("3_402ei")
+
+[node name="ForwardInput" type="Button" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/WASDBox/ForwardBox"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "w"
+script = ExtResource("5_kf6b5")
+input_action = "forward"
+
+[node name="BackwardBox" type="HBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/WASDBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+alignment = 1
+
+[node name="BackwardText" type="Label" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/WASDBox/BackwardBox"]
+layout_mode = 2
+text = "Backwards"
+label_settings = ExtResource("3_402ei")
+
+[node name="BackwardInput" type="Button" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/WASDBox/BackwardBox"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "s"
+script = ExtResource("5_kf6b5")
+input_action = "back"
+
+[node name="StrafeLeftBox" type="HBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/WASDBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="StrafeLeftText" type="Label" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/WASDBox/StrafeLeftBox"]
+layout_mode = 2
+text = "Strafe Left"
+label_settings = ExtResource("3_402ei")
+
+[node name="StrafeLeftInput" type="Button" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/WASDBox/StrafeLeftBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "a"
+script = ExtResource("5_kf6b5")
+input_action = "left"
+
+[node name="StrafeRightBox" type="HBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/WASDBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="StrafeRightText" type="Label" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/WASDBox/StrafeRightBox"]
+layout_mode = 2
+text = "Strafe Right"
+label_settings = ExtResource("3_402ei")
+
+[node name="StrafeRightInput" type="Button" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer/VBoxContainer/WASDBox/StrafeRightBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "d"
+script = ExtResource("5_kf6b5")
+input_action = "right"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="FullBox/VSep/Body/HSep/RightSide/BindingTabs/Keyboard/VBoxContainer"]
 layout_mode = 2
@@ -301,12 +394,14 @@ text = "Discard"
 
 [node name="InputMappingBox" type="VBoxContainer" parent="."]
 visible = false
+layout_direction = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.4
 anchor_top = 0.4
 anchor_right = 0.6
 anchor_bottom = 0.5
+alignment = 1
 
 [node name="ColorRect" type="ColorRect" parent="InputMappingBox"]
 layout_mode = 2
@@ -319,8 +414,6 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.5
 mouse_filter = 2
@@ -343,8 +436,8 @@ size_flags_vertical = 3
 text = "Input replacement"
 horizontal_alignment = 1
 
-[connection signal="visibility_changed" from="." to="." method="on_visibility_changed"]
-[connection signal="pressed" from="FullBox/VSep/Header/HeaderBackground/Exit" to="FullBox" method="CloseOutSettings"]
+[connection signal="visibility_changed" from="." to="." method="OnVisibilityChanged"]
+[connection signal="pressed" from="FullBox/VSep/Header/HeaderBackground/Exit" to="." method="try_to_close_out_settings"]
 [connection signal="value_changed" from="FullBox/VSep/Body/HSep/LeftSide/FPSBox/FPSSpinInput" to="FullBox" method="UpdateFPS"]
-[connection signal="value_changed" from="FullBox/VSep/Body/HSep/LeftSide/SoundBox/SoundSlider" to="FullBox" method="UpdateVolume"]
+[connection signal="value_changed" from="FullBox/VSep/Body/HSep/LeftSide/SoundBox/SoundSlider" to="." method="update_volume"]
 [connection signal="value_changed" from="FullBox/VSep/Body/HSep/LeftSide/BrightnessBox/BrightnessSlider" to="FullBox" method="UpdateBrightness"]
