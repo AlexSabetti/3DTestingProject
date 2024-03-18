@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://dgmngjxt4gbj2"]
+[gd_scene load_steps=19 format=3 uid="uid://dgmngjxt4gbj2"]
 
 [ext_resource type="Texture2D" uid="uid://5bq6hh8154tm" path="res://Textures/TestFloorPattern.png" id="1_iuw2d"]
 [ext_resource type="PackedScene" uid="uid://b0wcp0wtm3xqr" path="res://Scenes/player.tscn" id="1_wosbx"]
+[ext_resource type="PackedScene" uid="uid://dpdosovx11sg6" path="res://door.tscn" id="3_jtxnl"]
 [ext_resource type="PackedScene" uid="uid://dskeyj18ele3j" path="res://Objects/SealDoor.tscn" id="3_ois8m"]
 [ext_resource type="Script" path="res://Scripts/SealLogicGDVer.gd" id="4_36j8y"]
 [ext_resource type="Script" path="res://Scripts/PressureButtonGDVer.gd" id="5_fcm3w"]
@@ -39,6 +40,11 @@ albedo_color = Color(0.705882, 0.705882, 0, 1)
 material = SubResource("StandardMaterial3D_mt23l")
 size = Vector3(0.7, 0.2, 0.7)
 
+[sub_resource type="Environment" id="Environment_7aln7"]
+background_mode = 3
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(0.94902, 0.901961, 0.819608, 1)
+
 [node name="Main" type="Node"]
 
 [node name="Ground" type="StaticBody3D" parent="."]
@@ -54,21 +60,25 @@ mesh = SubResource("BoxMesh_7w57q")
 
 [node name="Test Light" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.840406, -0.541958, -3.13222e-07, 0.389825, -0.604496, 0.694709, -0.376503, 0.583837, 0.719291, 0.192352, 22.7561, -1000)
+visible = false
 shadow_enabled = true
+sky_mode = 1
 
 [node name="CameraPivot" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1000)
 
 [node name="Player" parent="." instance=ExtResource("1_wosbx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.599, 0)
-run_speed_mod = 1.2
 
 [node name="MapMockup" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -515)
 
+[node name="Door" parent="MapMockup" instance=ExtResource("3_jtxnl")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11.3325, 0, 516)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.981624, 0.060361, -0.181028, 0.038926, 0.86537, 0.499619, 0.186814, -0.497485, 0.847118, -0.216798, 10.7762, -1000)
-light_energy = 0.534
+visible = false
 sky_mode = 1
 
 [node name="SealA" parent="." instance=ExtResource("3_ois8m")]
@@ -104,7 +114,7 @@ object_name = "ToggleButton"
 prompt_action = "Interact"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ButtonB"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1000)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.165379, 0.0001297, -1000.17)
 shape = SubResource("BoxShape3D_yru4d")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ButtonB"]
@@ -117,6 +127,9 @@ TurnSpeed = 5.0
 TotalPositions = 8
 
 [node name="CyclopsBlock" parent="." instance=ExtResource("7_d261s")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7aln7")
 
 [connection signal="finished_movement" from="SealA" to="ButtonA" method="finished"]
 [connection signal="button_was_pressed" from="ButtonA" to="SealA" method="activated"]

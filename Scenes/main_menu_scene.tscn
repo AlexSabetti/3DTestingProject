@@ -136,7 +136,7 @@ transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
 mesh = SubResource("TextMesh_tsd0r")
 
 [connection signal="SettingsToggleOff" from="Camera3D/SettingsHUD" to="." method="deactivate_settings"]
-[connection signal="input_event" from="InWorldNormalMenu/Start" to="." method="InteractedStartButton"]
 [connection signal="input_event" from="InWorldNormalMenu/Start" to="." method="interacted_start_button"]
+[connection signal="input_event" from="InWorldNormalMenu/Start" to="." method="InteractedStartButton"]
 [connection signal="input_event" from="InWorldNormalMenu/Settings" to="." method="interacted_settings_button"]
 [connection signal="input_event" from="InWorldNormalMenu/Quit" to="." method="interacted_quit_button"]

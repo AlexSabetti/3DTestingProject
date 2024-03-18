@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6oam4xwvbpt6"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_fkbwm"]
+height = 7.0
+radius = 14.0
+
+[node name="Rook" type="CharacterBody3D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="SenseRange" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SenseRange"]
+shape = SubResource("CylinderShape3D_fkbwm")

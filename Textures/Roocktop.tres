@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://drrdijd56ka26"]
+
+[ext_resource type="Texture2D" uid="uid://du1u8h4ca21t4" path="res://Textures/roocktop.jpg" id="1_jlntq"]
+
+[resource]
+albedo_texture = ExtResource("1_jlntq")
+uv1_scale = Vector3(0.7, 0.7, 0.7)

@@ -8,36 +8,36 @@ var holding_anims: Dictionary = {
 	'Compass_Unequip' : ["Nothing_Held_Idle"],
 	'Flashlight_Equip' : ["Flashlight_Idle"],
 	'Flashlight_Idle' : ["Flashlight_Toggle", "Flashlight_Unequip", "Flashlight_Idle"],
-    'Flashlight_Toggle' :  ["Flashlight_Idle"],
-    'Flashlight_Unequip' :  ["Nothing_Held_Idle"],
-    'Map_Equip' : ["Map_Idle"],
-    'Map_Idle' : ["Map_Unequip", "Map_Idle"],
-    'Map_Unequip' : ["Nothing_Held_Idle"]
+	'Flashlight_Toggle' :  ["Flashlight_Idle"],
+	'Flashlight_Unequip' :  ["Nothing_Held_Idle"],
+	'Map_Equip' : ["Map_Idle"],
+	'Map_Idle' : ["Map_Unequip", "Map_Idle"],
+	'Map_Unequip' : ["Nothing_Held_Idle"]
 }
 
 var anim_speeds: Dictionary = {
 	#Default / Empty-Handed animation time
-        'Nothing_Held_Idle' : 1.0,
-        #Compass animation time
-        'Compass_Equip' : 0.7,
-        'Compass_Idle' : 1.0,
-        'Compass_Unequip' : 0.7,
+		'Nothing_Held_Idle' : 1.0,
+		#Compass animation time
+		'Compass_Equip' : 0.7,
+		'Compass_Idle' : 1.0,
+		'Compass_Unequip' : 0.7,
 		#Flashlight animation time
-        'Flashlight_Equip' : 0.7,
-        'Flashlight_Idle': 1.0,
-        'Flashlight_Toggle' : 0.2,
-        'Flashlight_Unequip' : 0.7,
-        #Map animation time
-        'Map_Equip' : 0.7,
-        'Map_Idle' : 1.0,
-        'Map_Unequip' : 0.7
+		'Flashlight_Equip' : 0.7,
+		'Flashlight_Idle': 1.0,
+		'Flashlight_Toggle' : 0.2,
+		'Flashlight_Unequip' : 0.7,
+		#Map animation time
+		'Map_Equip' : 0.7,
+		'Map_Idle' : 1.0,
+		'Map_Unequip' : 0.7
 }
 
 @export var current_state: String = ""
 
 func _ready():
 	set_target_animation("Nothing_Held_Idle")
-	animation_finished.connect(animation_ended(current_state))
+	connect("animation_finished", animation_ended)
 	
 func set_target_animation(anim_name: String):
 	#If we are already in the animation that is being called
@@ -54,7 +54,7 @@ func set_target_animation(anim_name: String):
 				current_state = anim_name
 
 				#Activate the animation for that name
-
+				play(anim_name, -1, anim_speeds[anim_name])
 				return true
 			else:
 				print("PlayerAnimation_ManagerGDVer.gd -- WARNING: I cannot change to {0} from  {1} as {1} does not have a path to it.".format([anim_name, current_state]))

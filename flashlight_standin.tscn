@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdrfda65ojp75"]
+
+[ext_resource type="PackedScene" uid="uid://domnyho17pfpm" path="res://Objects/FlashlightStandin.glb" id="1_jw5xf"]
+[ext_resource type="Script" path="res://Scripts/Flashlight_ItemGDVer.gd" id="2_1b178"]
+
+[node name="FlashlightStandin" instance=ExtResource("1_jw5xf")]
+script = ExtResource("2_1b178")
+item_name = "Flashlight"
+
+[node name="Light" type="SpotLight3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.590516)
+visible = false
+light_energy = 2.0
+light_volumetric_fog_energy = 10.0
+light_size = 1.0
+light_specular = 2.0
+spot_range = 22.0
+spot_angle = 30.0

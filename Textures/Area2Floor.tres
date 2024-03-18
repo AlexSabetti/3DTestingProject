@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://chfpndf4tghrw"]
+
+[ext_resource type="Texture2D" uid="uid://0d0wuem3bvtk" path="res://Textures/trak_rustyplate1.jpg" id="1_n5els"]
+
+[resource]
+albedo_texture = ExtResource("1_n5els")

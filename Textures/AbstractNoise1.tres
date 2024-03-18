@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bsvo3b0r76542"]
+
+[ext_resource type="Texture2D" uid="uid://butuvaqyyn441" path="res://Textures/abstract_noise_091-512x512.png" id="1_maupr"]
+
+[resource]
+albedo_texture = ExtResource("1_maupr")

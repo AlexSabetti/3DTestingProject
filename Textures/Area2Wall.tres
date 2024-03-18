@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://lsm7ya86ljg6"]
+
+[ext_resource type="Texture2D" uid="uid://de35lifl1xw14" path="res://Textures/trak_lessfckdfloor.jpg" id="1_ali4j"]
+
+[resource]
+albedo_texture = ExtResource("1_ali4j")
